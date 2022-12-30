@@ -19,13 +19,16 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("java-library")
     id("maven-publish")
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm")
 }
 
-group = "dev.d1s"
-version = "1.0.0"
+val projectGroup: String by project
+val projectVersion: String by project
 
-java.sourceCompatibility = JavaVersion.VERSION_11
+group = projectGroup
+version = projectVersion
+
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -33,17 +36,22 @@ repositories {
 
 dependencies {
     val ktorVersion: String by project
-    val liquibaseVersion: String by project
+
     val kmlogVersion: String by project
 
+    val liquibaseVersion: String by project
+
+
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
-    api("org.liquibase:liquibase-core:$liquibaseVersion")
+
     implementation("org.lighthousegames:logging-jvm:$kmlogVersion")
+
+    api("org.liquibase:liquibase-core:$liquibaseVersion")
 }
 
 publishing {
     publications {
-        create<MavenPublication>("ktor-server-liquibase") {
+        create<MavenPublication>(project.name) {
             from(components["java"])
         }
     }
@@ -51,7 +59,7 @@ publishing {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
     }
 }
 
