@@ -21,6 +21,7 @@ import liquibase.Contexts
 import liquibase.LabelExpression
 import liquibase.Liquibase
 import liquibase.Scope
+import liquibase.database.Database
 import liquibase.database.DatabaseFactory
 import liquibase.database.jvm.JdbcConnection
 import liquibase.resource.ClassLoaderResourceAccessor
@@ -31,6 +32,27 @@ import java.sql.Connection
 private const val CHANGELOG_PATH_PROPERTY = "liquibase.changelog"
 
 private val logger = logging()
+
+public val LiquibaseMigrations: ApplicationPlugin<LiquibaseMigrationsConfiguration> =
+    createApplicationPlugin("liquibase-migrations", ::LiquibaseMigrationsConfiguration) {
+        pluginConfig.application = application
+
+        withScope {
+            val connection = pluginConfig.requireConnection()
+            val database = getDatabaseInstance(connection)
+            val liquibase = Liquibase(pluginConfig.changeLogPath!!, pluginConfig.resourceAccessor, database)
+
+            logger.i {
+                "Running Liquibase update"
+            }
+
+            liquibase.runUpdate(pluginConfig.liquibaseContexts, pluginConfig.liquibaseLabels)
+
+            logger.i {
+                "Liquibase update ran successfully"
+            }
+        }
+    }
 
 public class LiquibaseMigrationsConfiguration {
 
@@ -48,35 +70,28 @@ public class LiquibaseMigrationsConfiguration {
     public val liquibaseContexts: MutableList<String> = mutableListOf()
 
     public val liquibaseLabels: MutableList<String> = mutableListOf()
+
+    internal fun requireConnection() = requireNotNull(connection) {
+        "Connection not set"
+    }
 }
 
-public val LiquibaseMigrations: ApplicationPlugin<LiquibaseMigrationsConfiguration> =
-    createApplicationPlugin("liquibase-migrations", ::LiquibaseMigrationsConfiguration) {
-        pluginConfig.application = application
-
-        Scope.child(mapOf()) {
-            val connection = requireNotNull(pluginConfig.connection) {
-                "Connection not set"
-            }
-
-            val database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(JdbcConnection(connection))
-
-            val liquibase = Liquibase(
-                requireNotNull(pluginConfig.changeLogPath) {
-                    "Changelog path not set"
-                }, pluginConfig.resourceAccessor, database
-            )
-
-            logger.i {
-                "Running Liquibase update"
-            }
-
-            liquibase.update(
-                Contexts(pluginConfig.liquibaseContexts), LabelExpression(pluginConfig.liquibaseLabels)
-            )
-
-            logger.i {
-                "Liquibase update ran successfully"
-            }
-        }
+private inline fun withScope(crossinline block: () -> Unit) {
+    Scope.child(mapOf()) {
+        block()
     }
+}
+
+private fun getDatabaseInstance(connection: Connection): Database {
+    val jdbcConnection = JdbcConnection(connection)
+    val databaseFactory = DatabaseFactory.getInstance()
+
+    return databaseFactory.findCorrectDatabaseImplementation(jdbcConnection)
+}
+
+private fun Liquibase.runUpdate(liquibaseContexts: List<String>, liquibaseLabels: List<String>) {
+    val contexts = Contexts(liquibaseContexts)
+    val labelExpression = LabelExpression(liquibaseLabels)
+
+    update(contexts, labelExpression)
+}
