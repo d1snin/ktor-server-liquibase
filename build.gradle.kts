@@ -17,9 +17,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    kotlin("jvm")
     id("java-library")
     id("maven-publish")
-    kotlin("jvm")
+    id("com.github.ben-manes.versions")
 }
 
 val projectGroup: String by project
@@ -28,7 +29,10 @@ val projectVersion: String by project
 group = projectGroup
 version = projectVersion
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+java{
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
     mavenCentral()
