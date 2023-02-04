@@ -33,6 +33,9 @@ private const val CHANGELOG_PATH_PROPERTY = "liquibase.changelog"
 
 private val logger = logging()
 
+/**
+ * Liquibase migrations plugin. As soon as applied it tries to perform a migration using [the supplied configuration][LiquibaseMigrationsConfiguration].
+ */
 public val LiquibaseMigrations: ApplicationPlugin<LiquibaseMigrationsConfiguration> =
     createApplicationPlugin("liquibase-migrations", ::LiquibaseMigrationsConfiguration) {
         pluginConfig.application = application
@@ -54,15 +57,27 @@ public val LiquibaseMigrations: ApplicationPlugin<LiquibaseMigrationsConfigurati
         }
     }
 
+/**
+ * Liquibase plugin configuration. The only required properties are [connection] and [changeLogPath]. The migration will fail if they're not set.
+ */
 public class LiquibaseMigrationsConfiguration {
 
     internal lateinit var application: Application
 
+    /**
+     * Database connection. Must be set.
+     */
     public var connection: Connection? = null
 
+    /**
+     * Changelog file path. Could be set either using [LiquibaseMigrationsConfiguration] directly or through `liquibase.changelog` property.
+     */
     public var changeLogPath: String? = null
         get() = field ?: application.environment.config.property(CHANGELOG_PATH_PROPERTY).getString()
 
+    /**
+     * Resource accessor implementation used to load the changelog file. The default implementation is [ClassLoaderResourceAccessor].
+     */
     public var resourceAccessor: ResourceAccessor = ClassLoaderResourceAccessor()
 
     public val liquibaseConfig: MutableMap<String, String> = mutableMapOf()
@@ -74,6 +89,8 @@ public class LiquibaseMigrationsConfiguration {
     internal fun requireConnection() = requireNotNull(connection) {
         "Connection not set"
     }
+
+    
 }
 
 private inline fun withScope(crossinline block: () -> Unit) {
