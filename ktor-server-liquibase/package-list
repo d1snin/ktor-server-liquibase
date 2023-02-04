@@ -1,0 +1,14 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:dev.d1s.ktor.liquibase.plugin////PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/index.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin//LiquibaseMigrations/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration///PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/index.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/LiquibaseMigrationsConfiguration/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/-liquibase-migrations-configuration.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/changeLogPath/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/change-log-path.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/connection/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/connection.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/liquibaseConfig/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/liquibase-config.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/liquibaseContexts/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/liquibase-contexts.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/liquibaseLabels/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/liquibase-labels.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/resourceAccessor/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/resource-accessor.html
+dev.d1s.ktor.liquibase.plugin
+
