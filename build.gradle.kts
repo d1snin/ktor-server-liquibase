@@ -18,6 +18,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
 
 plugins {
     kotlin("jvm")
@@ -79,6 +80,39 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+publishing {
+    repositories {
+        maven {
+            name = "mavenD1sDevRepository"
+
+            val channel = if (isDevVersion) {
+                "snapshots"
+            } else {
+                "releases"
+            }
+
+            url = uri("https://maven.d1s.dev/${channel.toLowerCaseAsciiOnly()}")
+
+            credentials {
+                username = System.getenv("MAVEN_D1S_DEV_USERNAME")
+                password = System.getenv("MAVEN_D1S_DEV_PASSWORD")
+            }
+        }
+    }
+
+    publications {
+        create<MavenPublication>("maven") {
+            if (isDevVersion) {
+                val commitShortSha = System.getenv("GIT_SHORT_COMMIT_SHA")
+
+                commitShortSha?.let {
+                    version = "$version-$it"
+                }
+            }
+        }
+    }
+}
+
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
         configureEach {
@@ -96,3 +130,5 @@ tasks.withType<DokkaTask>().configureEach {
 kotlin {
     explicitApi()
 }
+
+val isDevVersion get() = version.toString().endsWith("-dev")
