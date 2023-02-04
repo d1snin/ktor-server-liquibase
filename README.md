@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/dev.d1s/ktor-server-liquibase.svg)](https://jitpack.io/#dev.d1s/ktor-server-liquibase)
+[![](https://maven.d1s.dev/api/badge/latest/releases/dev/d1s/ktor-static-authentication?color=40c14a&name=maven.d1s.dev&prefix=v)](https://maven.d1s.dev/#/releases/dev/d1s/ktor-server-liquibase)
 
 ### Liquibase plugin for Ktor Server
 
@@ -8,7 +8,7 @@ This plugin enables Liquibase migrations for your Ktor application.
 
 ```kotlin
 repositories {
-    maven(url = "https://jitpack.io")
+    maven(url = "https://maven.d1s.dev/releases")
 }
 
 dependencies {
