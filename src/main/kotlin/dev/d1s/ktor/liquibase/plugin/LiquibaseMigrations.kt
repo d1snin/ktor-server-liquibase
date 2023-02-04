@@ -43,7 +43,7 @@ public val LiquibaseMigrations: ApplicationPlugin<LiquibaseMigrationsConfigurati
         withScope {
             val connection = pluginConfig.requireConnection()
             val database = getDatabaseInstance(connection)
-            val liquibase = Liquibase(pluginConfig.changeLogPath!!, pluginConfig.resourceAccessor, database)
+            val liquibase = Liquibase(pluginConfig.requireChangeLogPath(), pluginConfig.resourceAccessor, database)
 
             logger.i {
                 "Running Liquibase update"
@@ -90,7 +90,9 @@ public class LiquibaseMigrationsConfiguration {
         "Connection not set"
     }
 
-    
+    internal fun requireChangeLogPath() = requireNotNull(changeLogPath) {
+        "Changelog path not set"
+    }
 }
 
 private inline fun withScope(crossinline block: () -> Unit) {
