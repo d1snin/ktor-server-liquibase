@@ -1,4 +1,4 @@
-[![](https://maven.d1s.dev/api/badge/latest/releases/dev/d1s/ktor-static-authentication?color=40c14a&name=maven.d1s.dev&prefix=v)](https://maven.d1s.dev/#/releases/dev/d1s/ktor-server-liquibase)
+[![](https://maven.d1s.dev/api/badge/latest/releases/dev/d1s/ktor-server-liquibase?color=40c14a&name=maven.d1s.dev&prefix=v)](https://maven.d1s.dev/#/releases/dev/d1s/ktor-server-liquibase)
 
 ### Liquibase plugin for Ktor Server
 
