@@ -31,6 +31,14 @@ fun Application.configureLiquibase() {
 }
 ```
 
+### How to contribute
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+### Code of Conduct
+
+See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+
 ### License
 
 ```
