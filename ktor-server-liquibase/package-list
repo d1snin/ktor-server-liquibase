@@ -2,6 +2,7 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:dev.d1s.ktor.liquibase.plugin////PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/index.html
 $dokka.location:dev.d1s.ktor.liquibase.plugin//LiquibaseMigrations/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations.html
+$dokka.location:dev.d1s.ktor.liquibase.plugin//changeLogPath/io.ktor.server.config.ApplicationConfig#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/change-log-path.html
 $dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration///PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/index.html
 $dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/LiquibaseMigrationsConfiguration/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/-liquibase-migrations-configuration.html
 $dokka.location:dev.d1s.ktor.liquibase.plugin/LiquibaseMigrationsConfiguration/changeLogPath/#/PointingToDeclaration/ktor-server-liquibase/dev.d1s.ktor.liquibase.plugin/-liquibase-migrations-configuration/change-log-path.html
