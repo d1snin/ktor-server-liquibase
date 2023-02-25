@@ -17,6 +17,7 @@
 package dev.d1s.ktor.liquibase.plugin
 
 import io.ktor.server.application.*
+import io.ktor.server.config.*
 import liquibase.Contexts
 import liquibase.LabelExpression
 import liquibase.Liquibase
@@ -29,7 +30,7 @@ import liquibase.resource.ResourceAccessor
 import org.lighthousegames.logging.logging
 import java.sql.Connection
 
-private const val CHANGELOG_PATH_PROPERTY = "liquibase.changelog"
+private const val CHANGE_LOG_PATH_PROPERTY = "liquibase.changelog"
 
 private val logger = logging()
 
@@ -58,6 +59,11 @@ public val LiquibaseMigrations: ApplicationPlugin<LiquibaseMigrationsConfigurati
     }
 
 /**
+ * Shortcut for retrieving `liquibase.changelog` property. Fails if the property is absent.
+ */
+public val ApplicationConfig.changeLogPath: String get() = property(CHANGE_LOG_PATH_PROPERTY).getString()
+
+/**
  * Liquibase plugin configuration. The only required properties are [connection] and [changeLogPath]. The migration will fail if they're not set.
  */
 public class LiquibaseMigrationsConfiguration {
@@ -70,10 +76,9 @@ public class LiquibaseMigrationsConfiguration {
     public var connection: Connection? = null
 
     /**
-     * Changelog file path. Could be set either using [LiquibaseMigrationsConfiguration] directly or through `liquibase.changelog` property.
+     * Changelog file path. Must be set.
      */
     public var changeLogPath: String? = null
-        get() = field ?: application.environment.config.property(CHANGELOG_PATH_PROPERTY).getString()
 
     /**
      * Resource accessor implementation used to load the changelog file. The default implementation is [ClassLoaderResourceAccessor].

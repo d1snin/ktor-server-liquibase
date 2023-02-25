@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
 
 plugins {
@@ -42,7 +42,9 @@ val projectVersion: String by project
 group = projectGroup
 version = projectVersion
 
-java{
+java {
+    withSourcesJar()
+
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
@@ -57,7 +59,6 @@ dependencies {
     val kmlogVersion: String by project
 
     val liquibaseVersion: String by project
-
 
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
 
